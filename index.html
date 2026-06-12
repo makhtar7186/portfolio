@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>El Hadji Makhtar Faye — Data Scientist & Analyste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #0d0f14;
+      --surface:   #13161d;
+      --card:      #181c26;
+      --border:    #232840;
+      --accent:    #4f8ef7;
+      --accent2:   #a78bfa;
+      --text:      #e8eaf2;
+      --muted:     #7a7f99;
+      --tag-bg:    #1e2235;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 6vw;
+      background: rgba(13,15,20,.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: .9rem; color: var(--accent); letter-spacing: .08em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: .88rem;
+      letter-spacing: .04em; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── SECTIONS WRAPPER ── */
+    main { padding-top: 4.5rem; }
+    section { padding: 5rem 6vw; }
+    section + section { border-top: 1px solid var(--border); }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: .75rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+    }
+    h2.section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700; margin-bottom: 2.8rem; color: var(--text);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 70% 60% at 80% 40%, rgba(79,142,247,.09) 0%, transparent 70%),
+                  radial-gradient(ellipse 50% 50% at 10% 80%, rgba(167,139,250,.07) 0%, transparent 60%);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 780px; }
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace; font-size: .8rem;
+      letter-spacing: .2em; color: var(--accent); margin-bottom: 1.4rem;
+    }
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 700;
+      line-height: 1.1; margin-bottom: 1.4rem;
+    }
+    h1 span {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--muted); max-width: 520px;
+      margin-bottom: 2.4rem; line-height: 1.8;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block; padding: .75rem 1.8rem; border-radius: 6px;
+      background: var(--accent); color: #fff; font-weight: 600;
+      text-decoration: none; font-size: .92rem; transition: opacity .2s;
+    }
+    .btn-primary:hover { opacity: .85; }
+    .btn-ghost {
+      display: inline-block; padding: .75rem 1.8rem; border-radius: 6px;
+      border: 1px solid var(--border); color: var(--muted);
+      text-decoration: none; font-size: .92rem; transition: border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--text); }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+    .about-text p strong { color: var(--text); }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.4rem;
+    }
+    .stat-num {
+      font-family: 'Space Mono', monospace; font-size: 1.8rem;
+      font-weight: 700; color: var(--accent);
+    }
+    .stat-desc { font-size: .82rem; color: var(--muted); margin-top: .3rem; }
+
+    /* ── SKILLS ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.4rem; }
+    .skill-group {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.6rem;
+    }
+    .skill-group h3 {
+      font-size: .78rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 1rem;
+      font-family: 'Space Mono', monospace;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .tag {
+      background: var(--tag-bg); border: 1px solid var(--border);
+      color: var(--text); border-radius: 5px;
+      padding: .28rem .7rem; font-size: .8rem;
+    }
+
+    /* ── EXPERIENCE / TIMELINE ── */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .tl-item {
+      display: grid; grid-template-columns: 180px 1fr;
+      gap: 2rem; padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-date {
+      font-family: 'Space Mono', monospace; font-size: .78rem;
+      color: var(--muted); padding-top: .2rem; line-height: 1.6;
+    }
+    .tl-company {
+      font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .4rem;
+    }
+    .tl-role { font-size: 1.05rem; font-weight: 600; margin-bottom: .6rem; }
+    .tl-desc { color: var(--muted); font-size: .92rem; }
+
+    /* ── PROJECTS ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.4rem; }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.8rem;
+      transition: border-color .25s, transform .25s;
+      cursor: default;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .proj-icon {
+      width: 42px; height: 42px; background: var(--tag-bg);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: 1rem; border: 1px solid var(--border);
+    }
+    .project-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: .5rem; }
+    .project-card p { color: var(--muted); font-size: .88rem; margin-bottom: 1rem; }
+
+    /* ── FORMATION ── */
+    .edu-list { display: flex; flex-direction: column; gap: 1.2rem; }
+    .edu-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.5rem 1.8rem;
+      display: grid; grid-template-columns: 90px 1fr; gap: 1.5rem; align-items: center;
+    }
+    .edu-year {
+      font-family: 'Space Mono', monospace; font-size: .82rem;
+      color: var(--accent); text-align: center;
+    }
+    .edu-school { font-size: .75rem; color: var(--muted); margin-bottom: .25rem; }
+    .edu-degree { font-weight: 600; font-size: .98rem; }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+    #contact .section-label, #contact h2 { text-align: center; }
+    .contact-sub { color: var(--muted); max-width: 440px; margin: 0 auto 2.5rem; }
+    .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: .6rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px; padding: .75rem 1.4rem;
+      color: var(--text); text-decoration: none; font-size: .9rem;
+      transition: border-color .2s, color .2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-link svg { width: 18px; height: 18px; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2rem 6vw;
+      color: var(--muted); font-size: .8rem; border-top: 1px solid var(--border);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── GITHUB + HF ── */
+    .pub-sub-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.4rem; padding-bottom: .8rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .pub-sub-title {
+      display: flex; align-items: center; gap: .6rem;
+      font-family: 'Space Mono', monospace; font-size: .88rem;
+      color: var(--text); font-weight: 700;
+    }
+    .gh-profile-link {
+      display: flex; align-items: center; gap: .5rem;
+      color: var(--accent); text-decoration: none; font-size: .82rem;
+      font-family: 'Space Mono', monospace;
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: .4rem .9rem; transition: border-color .2s, background .2s;
+    }
+    .gh-profile-link:hover { border-color: var(--accent); background: var(--tag-bg); }
+    #github-repos-grid, #hf-spaces-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.2rem;
+    }
+    .gh-repo-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.4rem 1.6rem;
+      display: flex; flex-direction: column; gap: .7rem;
+      text-decoration: none; color: inherit;
+      transition: border-color .22s, transform .22s;
+    }
+    .gh-repo-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .gh-repo-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; }
+    .gh-repo-name { font-weight: 600; font-size: .96rem; color: var(--accent); }
+    .gh-repo-visibility {
+      font-size: .68rem; font-family: 'Space Mono', monospace;
+      color: var(--muted); border: 1px solid var(--border);
+      border-radius: 20px; padding: .1rem .55rem; white-space: nowrap;
+    }
+    .gh-repo-desc { font-size: .85rem; color: var(--muted); flex: 1; }
+    .gh-repo-meta { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+    .gh-lang {
+      display: flex; align-items: center; gap: .35rem;
+      font-size: .78rem; color: var(--muted);
+    }
+    .gh-lang-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent2); flex-shrink: 0;
+    }
+    .gh-stars {
+      display: flex; align-items: center; gap: .3rem;
+      font-size: .78rem; color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+    .hf-sdk-badge {
+      font-size: .68rem; font-family: 'Space Mono', monospace;
+      color: var(--accent2); border: 1px solid var(--accent2);
+      border-radius: 20px; padding: .1rem .55rem; opacity: .8;
+    }
+    .gh-loading, .gh-error {
+      text-align: center; padding: 3rem; color: var(--muted);
+      font-size: .9rem; grid-column: 1/-1;
+    }
+    .gh-loading-dots::after {
+      content: ''; animation: dots 1.4s infinite;
+    }
+    @keyframes dots {
+      0%   { content: '.'; }
+      33%  { content: '..'; }
+      66%  { content: '...'; }
+    }
+    .gh-skeleton {
+      background: linear-gradient(90deg, var(--card) 25%, var(--tag-bg) 50%, var(--card) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 4px; height: 14px;
+    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    /* ── FADE-IN ANIMATION ── */
+    .fade-in { opacity: 0; transform: translateY(22px); transition: opacity .55s ease, transform .55s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .tl-item { grid-template-columns: 1fr; gap: .5rem; }
+      .edu-item { grid-template-columns: 1fr; }
+      .edu-year { text-align: left; }
+      nav { padding: 1rem 4vw; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">MF.dev</div>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#skills">Compétences</a></li>
+      <li><a href="#experience">Expériences</a></li>
+      <li><a href="#projects">Projets</a></li>
+      <li><a href="#formation">Formation</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">// Data Scientist &amp; Analyste · Dakar, Sénégal</p>
+        <h1>El Hadji<br/><span>Makhtar Faye</span></h1>
+        <p class="hero-sub">
+          Ingénieur en Télécommunications spécialisé en <strong style="color:var(--text)">Intelligence Artificielle & Ingénierie des Données</strong>. 
+          Je transforme les données brutes en modèles prédictifs et en insights actionnables.
+        </p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn-primary">Me contacter</a>
+          <a href="#projects" class="btn-ghost">Voir mes projets</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="fade-in">
+        <p class="section-label">// 01 — profil</p>
+        <h2 class="section-title">À propos de moi</h2>
+      </div>
+      <div class="about-grid fade-in">
+        <div class="about-text">
+          <p>
+            Diplômé ingénieur de conception des télécommunications à l'<strong>ESMT de Dakar</strong>, 
+            spécialisé en <strong>Ingénierie des Données et Intelligence Artificielle</strong>.
+          </p>
+          <p>
+            Passionné par l'exploitation de la data pour résoudre des problèmes réels, 
+            j'ai eu l'opportunité de travailler chez <strong>Orange Sonatel</strong> sur des solutions 
+            prédictives pour l'optimisation réseau, et à l'<strong>ARTP</strong> sur la numérisation 
+            de processus de contrôle télécom.
+          </p>
+          <p>
+            Curieux, résilient et orienté résolution de problèmes, je m'épanouis dans 
+            des environnements collaboratifs et techniques exigeants.
+          </p>
+          <p style="margin-top:1.2rem">
+            🌍 Langues : <strong>Français</strong> (natif) · <strong>Anglais</strong> (B1)
+          </p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-num">3+</div>
+            <div class="stat-desc">Stages & expériences professionnelles</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">5+</div>
+            <div class="stat-desc">Années de formation scientifique & ingénierie</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">15+</div>
+            <div class="stat-desc">Outils & technologies maîtrisés</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">AI</div>
+            <div class="stat-desc">LLM, RAG, ML, NLP — focus IA appliquée</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="fade-in">
+        <p class="section-label">// 02 — compétences</p>
+        <h2 class="section-title">Stack technique</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-group fade-in">
+          <h3>Langages</h3>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Oracle SQL</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">SQL Server</span>
+          </div>
+        </div>
+        <div class="skill-group fade-in">
+          <h3>IA & Machine Learning</h3>
+          <div class="tags">
+            <span class="tag">Machine Learning</span>
+            <span class="tag">LLM</span>
+            <span class="tag">RAG</span>
+            <span class="tag">Prompt Engineering</span>
+            <span class="tag">Chatbots</span>
+          </div>
+        </div>
+        <div class="skill-group fade-in">
+          <h3>Data & ETL</h3>
+          <div class="tags">
+            <span class="tag">ETL</span>
+            <span class="tag">StreamSets</span>
+            <span class="tag">Talend</span>
+            <span class="tag">Elasticsearch</span>
+            <span class="tag">Jupyter Notebook</span>
+          </div>
+        </div>
+        <div class="skill-group fade-in">
+          <h3>Visualisation & BI</h3>
+          <div class="tags">
+            <span class="tag">Tableau</span>
+            <span class="tag">Power BI</span>
+            <span class="tag">Excel</span>
+          </div>
+        </div>
+        <div class="skill-group fade-in">
+          <h3>DevOps & Outils</h3>
+          <div class="tags">
+            <span class="tag">Git</span>
+            <span class="tag">Docker</span>
+            <span class="tag">Hugging Face</span>
+            <span class="tag">GitHub</span>
+          </div>
+        </div>
+        <div class="skill-group fade-in">
+          <h3>Soft Skills</h3>
+          <div class="tags">
+            <span class="tag">Travail d'équipe</span>
+            <span class="tag">Curiosité</span>
+            <span class="tag">Résilience</span>
+            <span class="tag">Résolution de problèmes</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="fade-in">
+        <p class="section-label">// 03 — expériences</p>
+        <h2 class="section-title">Parcours professionnel</h2>
+      </div>
+      <div class="timeline">
+
+        <div class="tl-item fade-in">
+          <div class="tl-date">Avr 2025<br/>— Oct 2025</div>
+          <div>
+            <p class="tl-company">Orange Sonatel · Dakar, Sénégal</p>
+            <p class="tl-role">Stage Data Scientist</p>
+            <p class="tl-desc">
+              Contribution au développement de solutions prédictives pour l'optimisation du réseau télécom. 
+              Mise en place de pipelines <strong>StreamSets</strong> pour les procédures ETL, et conception 
+              de modèles de prédiction du taux de charge, des linksets et du trafic QoS afin d'anticiper 
+              les surcharges et renforcer la résilience du réseau.
+            </p>
+            <div class="tags" style="margin-top:.9rem">
+              <span class="tag">Python</span><span class="tag">StreamSets</span>
+              <span class="tag">ETL</span><span class="tag">ML prédictif</span><span class="tag">QoS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item fade-in">
+          <div class="tl-date">Sept 2024<br/>— Nov 2024</div>
+          <div>
+            <p class="tl-company">ARTP · Dakar, Sénégal</p>
+            <p class="tl-role">Stage d'immersion — Ingénierie Télécom</p>
+            <p class="tl-desc">
+              Contribution à la conception d'une plateforme de numérisation du processus de contrôle 
+              des faisceaux hertziens, permettant une gestion plus efficace des campagnes de mesure.
+            </p>
+            <div class="tags" style="margin-top:.9rem">
+              <span class="tag">Faisceaux hertziens</span><span class="tag">Numérisation</span>
+              <span class="tag">Gestion de projet</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item fade-in">
+          <div class="tl-date">Août 2021<br/>— Sept 2021</div>
+          <div>
+            <p class="tl-company">PWA Energy Solution · Grand-Bassam, Côte d'Ivoire</p>
+            <p class="tl-role">Stage R&D — Systèmes Automatisés</p>
+            <p class="tl-desc">
+              Contribution à un projet R&D sur un système d'arrosage automatique basé sur <strong>Arduino & ESP32</strong>, 
+              et participation à l'installation de systèmes automatisés de portails.
+            </p>
+            <div class="tags" style="margin-top:.9rem">
+              <span class="tag">Arduino</span><span class="tag">ESP32</span>
+              <span class="tag">IoT</span><span class="tag">R&D</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="fade-in">
+        <p class="section-label">// 04 — projets</p>
+        <h2 class="section-title">Projets notables</h2>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card fade-in">
+          <div class="proj-icon">📡</div>
+          <h3>Prédiction trafic réseau QoS</h3>
+          <p>Modèles ML pour anticiper les surcharges réseau télécom chez Orange Sonatel. Pipeline complet de la collecte ETL à la prédiction en production.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">StreamSets</span><span class="tag">ML</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="proj-icon">🤖</div>
+          <h3>Chatbot IA (LLM + RAG)</h3>
+          <p>Conception d'un chatbot basé sur les Large Language Models avec architecture RAG pour répondre à des questions sur des bases documentaires spécialisées.</p>
+          <div class="tags">
+            <span class="tag">LLM</span><span class="tag">RAG</span><span class="tag">Python</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="proj-icon">📡</div>
+          <h3>Plateforme de contrôle hertzien</h3>
+          <p>Numérisation du processus de contrôle des faisceaux hertziens à l'ARTP pour moderniser et automatiser les campagnes de mesure terrain.</p>
+          <div class="tags">
+            <span class="tag">Télécommunications</span><span class="tag">Numérisation</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="proj-icon">🌱</div>
+          <h3>Système d'arrosage automatique</h3>
+          <p>Projet IoT/R&D : capteurs, Arduino et ESP32 pour un système d'arrosage intelligent réagissant aux conditions du sol en temps réel.</p>
+          <div class="tags">
+            <span class="tag">Arduino</span><span class="tag">ESP32</span><span class="tag">IoT</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- GITHUB + HUGGINGFACE -->
+    <section id="github">
+      <div class="fade-in">
+        <p class="section-label">// 05 — open source</p>
+        <h2 class="section-title">Projets publics</h2>
+      </div>
+
+      <div class="pub-sub-header fade-in">
+        <span class="pub-sub-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </span>
+        <a href="https://github.com/makhtar7186" target="_blank" class="gh-profile-link">Voir le profil →</a>
+      </div>
+      <div id="github-repos-grid" class="fade-in">
+        <div class="gh-loading"><span class="gh-loading-dots">Chargement des dépôts</span></div>
+      </div>
+
+      <div class="pub-sub-header fade-in" style="margin-top:3.5rem">
+        <span class="pub-sub-title">🤗 Hugging Face Spaces</span>
+        <a href="https://huggingface.co/makhtar7186" target="_blank" class="gh-profile-link">Voir le profil →</a>
+      </div>
+      <div id="hf-spaces-grid" class="fade-in">
+        <div class="gh-loading"><span class="gh-loading-dots">Chargement des espaces</span></div>
+      </div>
+    </section>
+
+    <!-- FORMATION -->
+    <section id="formation">
+      <div class="fade-in">
+        <p class="section-label">// 06 — formation</p>
+        <h2 class="section-title">Parcours académique</h2>
+      </div>
+      <div class="edu-list">
+
+        <div class="edu-item fade-in">
+          <div class="edu-year">2025</div>
+          <div>
+            <p class="edu-school">ESMT, Dakar</p>
+            <p class="edu-degree">Diplôme d'ingénieur de conception des télécommunications — Spécialité : Ingénierie des Données & Intelligence Artificielle</p>
+          </div>
+        </div>
+
+        <div class="edu-item fade-in">
+          <div class="edu-year">2023</div>
+          <div>
+            <p class="edu-school">ESMT, Dakar</p>
+            <p class="edu-degree">Licence en Sciences de l'Ingénieur</p>
+          </div>
+        </div>
+
+        <div class="edu-item fade-in">
+          <div class="edu-year">2021–2022</div>
+          <div>
+            <p class="edu-school">ESMT – ESIGELEC – Cours Sacré-Cœur</p>
+            <p class="edu-degree">Classes Préparatoires Scientifiques — 2ème année (MPSI/PCSI)</p>
+          </div>
+        </div>
+
+        <div class="edu-item fade-in">
+          <div class="edu-year">2020–2021</div>
+          <div>
+            <p class="edu-school">ESMT – ESIGELEC – Cours Sacré-Cœur</p>
+            <p class="edu-degree">Classes Préparatoires Scientifiques — 1ère année</p>
+          </div>
+        </div>
+
+        <div class="edu-item fade-in">
+          <div class="edu-year">2020</div>
+          <div>
+            <p class="edu-school">Lycée Macodou Khangue Sall</p>
+            <p class="edu-degree">Baccalauréat Série S2</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="fade-in">
+        <p class="section-label">// 07 — contact</p>
+        <h2 class="section-title">Me contacter</h2>
+        <p class="contact-sub">Disponible pour des opportunités en Data Science, IA appliquée ou Analyse de données. N'hésitez pas à me contacter.</p>
+        <div class="contact-links">
+
+          <a href="mailto:makhtarfaye02@gmail.com" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+            makhtarfaye02@gmail.com
+          </a>
+
+          <a href="https://github.com/makhtar7186" target="_blank" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            github.com/makhtar7186
+          </a>
+
+          <a href="https://huggingface.co/makhtar7186" target="_blank" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><text y="18" font-size="18">🤗</text></svg>
+            huggingface.co/makhtar7186
+          </a>
+
+          <a href="tel:+221768517336" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            +221 76 851 73 36
+          </a>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 El Hadji Makhtar Faye — Conçu avec soin · Dakar, Sénégal</p>
+  </footer>
+
+  <script>
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // GitHub + Hugging Face
+    const HF_USER = 'makhtar7186';
+    const GH_USER = 'makhtar7186';
+    const langColors = {
+      Python: '#3572A5', JavaScript: '#f1e05a', TypeScript: '#2b7489',
+      HTML: '#e34c26', CSS: '#563d7c', 'Jupyter Notebook': '#DA5B0B',
+      Shell: '#89e051', R: '#198CE7',
+    };
+
+    function renderRepos(repos) {
+      const grid = document.getElementById('github-repos-grid');
+      if (!repos.length) {
+        grid.innerHTML = '<div class="gh-error">Aucun dépôt public trouvé.</div>';
+        return;
+      }
+      grid.innerHTML = repos.map(r => {
+        const color = langColors[r.language] || 'var(--accent2)';
+        const lang = r.language
+          ? `<span class="gh-lang"><span class="gh-lang-dot" style="background:${color}"></span>${r.language}</span>`
+          : '';
+        const stars = r.stargazers_count > 0
+          ? `<span class="gh-stars">★ ${r.stargazers_count}</span>`
+          : '';
+        return `
+          <a class="gh-repo-card" href="${r.html_url}" target="_blank" rel="noopener">
+            <div class="gh-repo-top">
+              <span class="gh-repo-name">${r.name}</span>
+              <span class="gh-repo-visibility">${r.private ? 'private' : 'public'}</span>
+            </div>
+            <p class="gh-repo-desc">${r.description || '<em>Pas de description</em>'}</p>
+            <div class="gh-repo-meta">${lang}${stars}</div>
+          </a>`;
+      }).join('');
+      document.querySelectorAll('#github-repos-grid .gh-repo-card').forEach(el => {
+        el.classList.add('fade-in');
+        observer.observe(el);
+      });
+    }
+
+    async function loadGitHub() {
+      const grid = document.getElementById('github-repos-grid');
+      try {
+        const res = await fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100&sort=pushed`);
+        if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+        const repos = await res.json();
+        renderRepos(repos);
+      } catch (err) {
+        grid.innerHTML = `<div class="gh-error">Impossible de charger les dépôts GitHub.<br><small>${err.message}</small></div>`;
+      }
+    }
+
+    function renderSpaces(spaces) {
+      const grid = document.getElementById('hf-spaces-grid');
+      if (!spaces.length) {
+        grid.innerHTML = '<div class="gh-error">Aucun espace Hugging Face trouvé.</div>';
+        return;
+      }
+      grid.innerHTML = spaces.map(s => {
+        const name = s.id.split('/')[1];
+        const sdk = s.sdk ? `<span class="hf-sdk-badge">${s.sdk}</span>` : '';
+        const likes = s.likes > 0
+          ? `<span class="gh-stars">♥ ${s.likes}</span>`
+          : '';
+        const desc = s.cardData?.short_description || s.cardData?.description || '';
+        return `
+          <a class="gh-repo-card" href="https://huggingface.co/spaces/${s.id}" target="_blank" rel="noopener">
+            <div class="gh-repo-top">
+              <span class="gh-repo-name">${name}</span>
+              ${sdk}
+            </div>
+            <p class="gh-repo-desc">${desc || '<em>Pas de description</em>'}</p>
+            <div class="gh-repo-meta">${likes}</div>
+          </a>`;
+      }).join('');
+      document.querySelectorAll('#hf-spaces-grid .gh-repo-card').forEach(el => {
+        el.classList.add('fade-in');
+        observer.observe(el);
+      });
+    }
+
+    async function loadHuggingFace() {
+      const grid = document.getElementById('hf-spaces-grid');
+      try {
+        const res = await fetch(`https://huggingface.co/api/spaces?author=${HF_USER}&full=true&limit=50`);
+        if (!res.ok) throw new Error(`HF API ${res.status}`);
+        const spaces = await res.json();
+        renderSpaces(spaces);
+      } catch (err) {
+        grid.innerHTML = `<div class="gh-error">Impossible de charger les espaces Hugging Face.<br><small>${err.message}</small></div>`;
+      }
+    }
+
+    loadGitHub();
+    loadHuggingFace();
+  </script>
+</body>
+</html>
